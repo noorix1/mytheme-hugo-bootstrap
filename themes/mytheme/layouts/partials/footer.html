@@ -1,0 +1,13 @@
+<footer class="footer fixed-bottom bg-dark">
+
+    <div class="row footer-text">
+      <div class="col-12 col-md text-center text-md-left nav-link text-white">© My Organisation - 2020 All rights reserved.</div>
+    </div>
+
+  <!-- JavaScript and dependencies -->
+
+  {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" }}
+  {{ $js := slice $bootstrap | resources.Concat "js/bundle.js" | resources.Minify }}
+
+  <script src="{{$js.RelPermalink}}" defer></script>
+</footer>

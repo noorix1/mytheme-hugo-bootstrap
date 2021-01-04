@@ -1,0 +1,22 @@
+<div class="jumbotron text-center">
+  <h1 class="display-4">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured
+    content or information.</p>
+
+  <div class="d-flex justify-content-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link {{ if .IsHome }} active {{ end }} " aria-current="page" href="/">Home</a>
+          <a class="nav-link {{ if eq .Params.menuCode 1 }} active {{ end }}" href="/aboutus/">About Us</a>
+          <a class="nav-link {{ if eq .Section `services` }} active {{ end }}" href="/services/">Services</a>
+          <a class="nav-link {{ if eq .Params.menuCode 3 }} active {{ end }}" href="/contactus/">Contact Us</a>
+
+          <a class="nav-link  {{ if (or (eq .Section `blog`) (eq .Section `categories`)) }} active {{ end }}" href="/blogs">Blogs</a>
+
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
