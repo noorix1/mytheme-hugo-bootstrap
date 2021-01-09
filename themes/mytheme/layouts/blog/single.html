@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="container">
+
+
+  <div class="row">
+    <nav class="col text-start align-middle">
+           
+      {{ range .Params.categories }}
+     <a class="badge rounded-pill bg-primary nav-link" href="/categories/{{ . | urlize}}">{{ . }}</a>
+
+      {{end}}
+   
+    </nav>
+    
+
+    <div class="col-auto text-end ">
+      
+      <time datetime="{{ .Lastmod.Format `006-01-02T15:04:05Z07:00` | safeHTML }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time>
+
+    </div>
+    <div class="mt-3"> Author:  <a  target="_blank" rel="author noopener">{{ .Param "author" }} </a></div>
+
+  </div>
+
+  <div class="row justify-content-md-center mt-3">
+    <div class="text-center col-12 col-xl-8 my-4">
+      <img src="{{ .Param `featuredImage` }}" class="img-fluid rounded" alt="featured image"
+        aria-label="featured image">
+    </div>
+  </div>
+
+  <section class="blog-content">
+    {{ .Content }}
+  </section>
+
+  <br />
+  <br />
+
+
+</div>
+{{ end }}

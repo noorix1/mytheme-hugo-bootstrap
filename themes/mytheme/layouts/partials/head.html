@@ -1,12 +1,17 @@
 <head>
     <title>{{ .Title }}</title>
     <meta charset="utf-8">
-    <meta name="description"
-        content="Website meta description for google search results go here" />
+    <meta name="description"  content='{{ .Param "Description" }}' />
+     
     <meta name="dc.relation" content="{{ .Site.BaseURL }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#1A94D2" />
 
+    {{ template "_internal/opengraph.html" . }}
+    
+    {{ template "_internal/twitter_cards.html" . }}
+
+    
     {{ $options := (dict "targetPath" "css/style.css" "outputStyle" "compressed") }}
 
     {{ $style := resources.Get "sass/main.scss" | toCSS  $options | minify }}
@@ -19,5 +24,10 @@
     -->
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
 
+      <!-- will load json/ld depending on page type-->
+      {{ if and (.IsPage) (eq .Section "blog") }}
+         {{- partial "articleschema.html" .  -}}
+      {{ end }}
+   
 
 </head>

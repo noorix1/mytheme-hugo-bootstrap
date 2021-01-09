@@ -7,16 +7,48 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link {{ if .IsHome }} active {{ end }} " aria-current="page" href="/">Home</a>
-          <a class="nav-link {{ if eq .Params.menuCode 1 }} active {{ end }}" href="/aboutus/">About Us</a>
-          <a class="nav-link {{ if eq .Section `services` }} active {{ end }}" href="/services/">Services</a>
-          <a class="nav-link {{ if eq .Params.menuCode 3 }} active {{ end }}" href="/contactus/">Contact Us</a>
+        <ul class="navbar-nav">
+     
+          <li class="nav-item">
+            <a class="nav-link {{ if .IsHome }} active {{ end }} " href="{{ .Site.Home.Permalink }}">Home</a>
+          </li>
 
-          <a class="nav-link  {{ if (or (eq .Section `blog`) (eq .Section `categories`)) }} active {{ end }}" href="/blogs">Blogs</a>
+          {{ $currentPage := . }}
 
-        </div>
+          {{ range .Site.Menus.main.ByWeight }}
+
+            {{ if .HasChildren }}
+              <li class="nav-item dropdown">
+                <a class='nav-link dropdown-toggle  {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active {{ end }}' href="#"
+                  id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                   {{ .Title }}
+                </a>
+             
+                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  {{ range .Children }}
+                    <li>
+                      <a class='dropdown-item  {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active {{ end }}' href="{{ .URL }}">  {{ .Title }}</a>
+                    </li>
+                  {{ end }}
+                </ul> 
+              </li>
+          
+            {{ else }}
+            <li class="nav-item">
+              <a class='nav-link {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active {{ end }}'
+                href="{{ absURL .URL }}">
+                 {{ .Title }}
+                 
+              </a>
+            </li>
+            {{ end }}
+
+          {{ end }}
+        
+        </ul>
       </div>
     </nav>
   </div>
+  
 </div>
+
